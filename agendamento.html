@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Consulta Gratuita | Brasil+EUA Fiscal</title>
+    <meta name="description" content="Agende sua consulta fiscal gratuita. Especialistas em imposto de renda para brasileiros nos EUA.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇧🇷</text></svg>">
+    <style>
+        .booking-page {
+            padding: 120px 0 80px;
+            background: var(--gray-50);
+            min-height: 100vh;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .booking-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Left: Info */
+        .booking-info {
+            padding: 32px;
+            background: var(--gradient-hero);
+            border-radius: var(--radius-xl);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-info::before {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255,223,0,0.05);
+        }
+
+        .booking-info h1 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .booking-info .lead {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        .booking-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .booking-detail-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .booking-detail-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--br-yellow);
+        }
+
+        .booking-detail h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .booking-detail p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.4;
+        }
+
+        .booking-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 24px;
+            position: relative;
+        }
+
+        .booking-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .booking-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--br-yellow);
+        }
+
+        /* Right: Form */
+        .booking-form-wrapper {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .booking-form-wrapper { background: var(--gray-100); }
+        }
+
+        .booking-form-wrapper h2 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+
+        .booking-form-wrapper .sub {
+            font-size: 0.88rem;
+            color: var(--gray-500);
+            margin-bottom: 24px;
+        }
+
+        .booking-form .form-group { margin-bottom: 14px; }
+
+        .form-divider {
+            border: none;
+            border-top: 1px solid var(--gray-100);
+            margin: 20px 0;
+        }
+
+        .form-section-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--br-green);
+            margin-bottom: 12px;
+        }
+
+        /* Time slots */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .time-slot {
+            padding: 10px;
+            text-align: center;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: none;
+            font-family: var(--font-body);
+        }
+
+        .time-slot:hover {
+            border-color: var(--br-green);
+            color: var(--br-green);
+        }
+
+        .time-slot.selected {
+            border-color: var(--br-green);
+            background: var(--br-green);
+            color: white;
+        }
+
+        /* Calendly placeholder */
+        .calendly-placeholder {
+            border: 2px dashed var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            text-align: center;
+            margin: 16px 0;
+            display: none; /* hidden by default, show when Calendly is integrated */
+        }
+
+        .calendly-placeholder p {
+            font-size: 0.88rem;
+            color: var(--gray-400);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">
+                <span class="navbar-brand-flags">
+                    <svg class="flag-icon" viewBox="0 0 28 20"><rect width="28" height="20" rx="2" fill="#009c3b"/><path d="M14 3L26 10L14 17L2 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4" fill="#002776"/></svg>
+                    <svg class="flag-icon" viewBox="0 0 28 20"><rect width="28" height="20" rx="2" fill="#bf0a30"/><rect y="3" width="28" height="2" fill="#fff"/><rect y="7" width="28" height="2" fill="#fff"/><rect y="11" width="28" height="2" fill="#fff"/><rect y="15" width="28" height="2" fill="#fff"/><rect width="12" height="10" fill="#002868"/></svg>
+                </span>
+                Brasil+EUA Fiscal
+            </a>
+            <a href="index.html" class="navbar-cta">&larr; Voltar ao site</a>
+        </div>
+    </nav>
+
+    <main class="booking-page">
+        <div class="container">
+            <div class="booking-grid">
+
+                <!-- Info Column -->
+                <div class="booking-info">
+                    <h1>Agende sua consulta gratuita</h1>
+                    <p class="lead">30 minutos que podem mudar sua situação fiscal. Sem compromisso, sem vendas agressivas — apenas orientação profissional.</p>
+
+                    <div class="booking-detail">
+                        <div class="booking-detail-icon"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                        <div><h3>Duração: 30 minutos</h3><p>Tempo suficiente para entender sua situação e traçar um plano de ação</p></div>
+                    </div>
+
+                    <div class="booking-detail">
+                        <div class="booking-detail-icon"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></div>
+                        <div><h3>Videochamada ou WhatsApp</h3><p>Você escolhe o formato que preferir. Atendemos de qualquer lugar dos EUA</p></div>
+                    </div>
+
+                    <div class="booking-detail">
+                        <div class="booking-detail-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+                        <div><h3>100% sigiloso</h3><p>Todas as informações compartilhadas são protegidas por sigilo profissional</p></div>
+                    </div>
+
+                    <div class="booking-detail">
+                        <div class="booking-detail-icon"><svg viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1"/></svg></div>
+                        <div><h3>Gratuito, sem compromisso</h3><p>Você só contrata se fizer sentido para a sua situação</p></div>
+                    </div>
+
+                    <div class="booking-badges">
+                        <span class="booking-badge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Em português</span>
+                        <span class="booking-badge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Especialistas bilíngues</span>
+                        <span class="booking-badge"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> 50 estados</span>
+                    </div>
+                </div>
+
+                <!-- Form Column -->
+                <div class="booking-form-wrapper">
+                    <h2>Preencha seus dados</h2>
+                    <p class="sub">Entraremos em contato para confirmar o horário.</p>
+
+                    <form class="booking-form" id="booking-form">
+                        <div class="form-section-title">Dados pessoais</div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="b-nome">Nome completo</label>
+                            <input class="form-input" type="text" id="b-nome" name="nome" placeholder="Seu nome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="b-email">Email</label>
+                            <input class="form-input" type="email" id="b-email" name="email" placeholder="email@exemplo.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="b-whatsapp">WhatsApp</label>
+                            <input class="form-input" type="tel" id="b-whatsapp" name="whatsapp" placeholder="+1 (xxx) xxx-xxxx" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="b-estado">Estado (EUA)</label>
+                            <select class="form-select" id="b-estado" name="estado">
+                                <option value="">Selecione...</option>
+                                <option>Florida</option>
+                                <option>Massachusetts</option>
+                                <option>New Jersey</option>
+                                <option>New York</option>
+                                <option>California</option>
+                                <option>Texas</option>
+                                <option>Georgia</option>
+                                <option>Connecticut</option>
+                                <option>Pennsylvania</option>
+                                <option>Illinois</option>
+                                <option>Outro estado</option>
+                            </select>
+                        </div>
+
+                        <hr class="form-divider">
+                        <div class="form-section-title">Situação fiscal</div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="b-situacao">Qual sua principal necessidade?</label>
+                            <select class="form-select" id="b-situacao" name="situacao">
+                                <option value="">Selecione...</option>
+                                <option>Declaração de IR no Brasil</option>
+                                <option>Tax Return nos EUA</option>
+                                <option>Regularização de anos anteriores</option>
+                                <option>Saída Definitiva do Brasil</option>
+                                <option>Remessas internacionais</option>
+                                <option>FBAR / FATCA</option>
+                                <option>Planejamento tributário bilateral</option>
+                                <option>Não sei — preciso de orientação</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="b-anos">Há quantos anos mora nos EUA?</label>
+                            <select class="form-select" id="b-anos" name="anos_eua">
+                                <option value="">Selecione...</option>
+                                <option>Menos de 1 ano</option>
+                                <option>1-3 anos</option>
+                                <option>3-5 anos</option>
+                                <option>5-10 anos</option>
+                                <option>Mais de 10 anos</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="b-detalhes">Algum detalhe importante? (opcional)</label>
+                            <textarea class="form-input" id="b-detalhes" name="detalhes" rows="3" placeholder="Ex: Tenho imóvel no Brasil, nunca declarei desde que mudei..." style="resize: vertical;"></textarea>
+                        </div>
+
+                        <hr class="form-divider">
+                        <div class="form-section-title">Preferência de horário</div>
+
+                        <div class="time-slots">
+                            <button type="button" class="time-slot" data-time="manha">Manhã<br><small>9h-12h ET</small></button>
+                            <button type="button" class="time-slot" data-time="tarde">Tarde<br><small>12h-17h ET</small></button>
+                            <button type="button" class="time-slot" data-time="noite">Noite<br><small>17h-20h ET</small></button>
+                        </div>
+
+                        <!-- Calendly embed placeholder -->
+                        <div class="calendly-placeholder">
+                            <p>Integração Calendly aqui<br><small>Adicione o embed code do Calendly neste espaço</small></p>
+                        </div>
+
+                        <button type="submit" class="btn-green form-submit" style="width: 100%; justify-content: center;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                            Solicitar Agendamento
+                        </button>
+
+                        <p class="form-disclaimer" style="margin-top: 12px;">
+                            Ao enviar, você concorda com nossa <a href="privacidade.html">Política de Privacidade</a>.
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" style="padding: 32px 0;">
+        <div class="container">
+            <p style="font-size: 0.8rem;">&copy; 2026 Brasil+EUA Fiscal. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Time slot selection
+        document.querySelectorAll('.time-slot').forEach(function(slot) {
+            slot.addEventListener('click', function() {
+                document.querySelectorAll('.time-slot').forEach(function(s) { s.classList.remove('selected'); });
+                this.classList.add('selected');
+            });
+        });
+
+        // Navbar scroll
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // Form submit
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var selectedTime = document.querySelector('.time-slot.selected');
+            var formData = {
+                nome: document.getElementById('b-nome').value,
+                email: document.getElementById('b-email').value,
+                whatsapp: document.getElementById('b-whatsapp').value,
+                estado: document.getElementById('b-estado').value,
+                situacao: document.getElementById('b-situacao').value,
+                anos_eua: document.getElementById('b-anos').value,
+                detalhes: document.getElementById('b-detalhes').value,
+                horario: selectedTime ? selectedTime.getAttribute('data-time') : ''
+            };
+            console.log('[Booking Submit]', formData);
+            window.location.href = 'obrigado.html';
+        });
+    </script>
+
+</body>
+</html>
