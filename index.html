@@ -12,10 +12,10 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="">
 
-    <!-- Fonts -->
+    <!-- Fonts — Poppins + Nunito Sans (identidade MCO) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800;900&family=Sora:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
@@ -44,8 +44,8 @@
     </script>
     -->
 
-    <!-- Favicon (placeholder) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇧🇷</text></svg>">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230064B1'/><text x='15' y='42' font-family='sans-serif' font-weight='800' font-size='30' fill='white'>BR</text><rect x='15' y='50' width='70' height='4' rx='2' fill='%23ffab00'/><text x='12' y='78' font-family='sans-serif' font-weight='800' font-size='30' fill='%23ffab00'>EUA</text></svg>">
 </head>
 <body>
 
@@ -58,13 +58,20 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="#" class="navbar-brand">
-                <span class="navbar-brand-flags">
-                    <!-- BR Flag Mini -->
-                    <svg class="flag-icon" viewBox="0 0 28 20"><rect width="28" height="20" rx="2" fill="#009c3b"/><path d="M14 3L26 10L14 17L2 10Z" fill="#ffdf00"/><circle cx="14" cy="10" r="4" fill="#002776"/></svg>
-                    <!-- US Flag Mini -->
-                    <svg class="flag-icon" viewBox="0 0 28 20"><rect width="28" height="20" rx="2" fill="#bf0a30"/><rect y="3" width="28" height="2" fill="#fff"/><rect y="7" width="28" height="2" fill="#fff"/><rect y="11" width="28" height="2" fill="#fff"/><rect y="15" width="28" height="2" fill="#fff"/><rect width="12" height="10" fill="#002868"/></svg>
-                </span>
-                Brasil+EUA Fiscal
+                <svg class="brand-logo" viewBox="0 0 320 40" xmlns="http://www.w3.org/2000/svg">
+                    <!-- MCO Logo mark -->
+                    <rect x="0" y="4" width="32" height="32" rx="6" fill="#0064B1"/>
+                    <text x="4" y="25" font-family="Poppins, sans-serif" font-weight="800" font-size="14" fill="#ffffff">MCO</text>
+                    <!-- Separator -->
+                    <rect x="40" y="8" width="1.5" height="24" rx="0.75" fill="#d8dbe5"/>
+                    <!-- Brasil+EUA Fiscal -->
+                    <rect x="50" y="4" width="32" height="32" rx="6" fill="#0064B1"/>
+                    <text x="57" y="17" font-family="Poppins, sans-serif" font-weight="800" font-size="9" fill="#ffffff">BR</text>
+                    <rect x="56" y="20" width="20" height="1" rx="0.5" fill="#ffab00"/>
+                    <text x="56" y="30" font-family="Poppins, sans-serif" font-weight="800" font-size="9" fill="#ffab00">EUA</text>
+                    <text x="90" y="18" font-family="Poppins, sans-serif" font-weight="700" font-size="15" fill="#0064B1">Brasil+EUA</text>
+                    <text x="90" y="32" font-family="Poppins, sans-serif" font-weight="500" font-size="11" fill="#6e7485">Fiscal</text>
+                </svg>
             </a>
 
             <nav class="navbar-nav">
@@ -123,7 +130,7 @@
                         <!-- Connector glow -->
                         <rect x="72" y="31" width="36" height="6" rx="3" fill="url(#bridge-grad)" opacity="0.9"/>
                         <circle cx="90" cy="34" r="14" fill="white" filter="url(#glow)"/>
-                        <text x="90" y="39" text-anchor="middle" font-size="16" fill="#009c3b">&#x2764;</text>
+                        <text x="90" y="39" text-anchor="middle" font-size="16" fill="#0064B1">&#x2764;</text>
                         <!-- US Flag -->
                         <g transform="rotate(6 135 34)">
                             <rect x="95" y="6" width="80" height="56" rx="6" fill="#bf0a30"/>
@@ -924,10 +931,19 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-brand">
-                <svg width="24" height="17" viewBox="0 0 24 17"><rect width="24" height="17" rx="2" fill="#009c3b"/><path d="M12 2.5L22 8.5L12 14.5L2 8.5Z" fill="#ffdf00"/><circle cx="12" cy="8.5" r="3.5" fill="#002776"/></svg>
-                Brasil+EUA Fiscal
+                <svg width="140" height="36" viewBox="0 0 320 40" xmlns="http://www.w3.org/2000/svg">
+                    <!-- MCO Logo mark -->
+                    <rect x="0" y="4" width="32" height="32" rx="6" fill="#ffab00"/>
+                    <text x="4" y="25" font-family="Poppins, sans-serif" font-weight="800" font-size="14" fill="#ffffff">MCO</text>
+                    <!-- Separator -->
+                    <rect x="40" y="8" width="1.5" height="24" rx="0.75" fill="rgba(255,255,255,0.3)"/>
+                    <!-- Brasil+EUA Fiscal -->
+                    <text x="50" y="18" font-family="Poppins, sans-serif" font-weight="700" font-size="15" fill="#ffffff">Brasil+EUA</text>
+                    <text x="50" y="32" font-family="Poppins, sans-serif" font-weight="500" font-size="11" fill="rgba(255,255,255,0.7)">Fiscal</text>
+                </svg>
             </div>
             <p>Assessoria fiscal especializada para brasileiros nos Estados Unidos.<br>Cuidamos do seu IR no Brasil e Tax Return nos EUA.</p>
+            <p class="footer-mco">Uma empresa do grupo <strong>MCO — Minha Contabilidade Online</strong></p>
             <div class="footer-links">
                 <a href="#inicio">Início</a>
                 <a href="#solucao">Serviços</a>

@@ -11,63 +11,63 @@
 }
 
 :root {
-    /* Brasil — tons suavizados */
-    --br-green: #2d9d5e;
-    --br-green-dark: #247a4a;
-    --br-green-light: #3db873;
-    --br-yellow: #e6c84a;
-    --br-yellow-soft: #fdf6e3;
-    --br-blue: #1e3a5f;
+    /* Primária — Azul institucional (inspirado MCO) */
+    --br-green: #0064B1;
+    --br-green-dark: #004d8a;
+    --br-green-light: #1a7bc4;
+    --br-yellow: #ffab00;
+    --br-yellow-soft: #fff8e6;
+    --br-blue: #000d2b;
 
-    /* EUA — tons suavizados */
-    --us-blue: #1e3a5f;
-    --us-blue-light: #2a4f7a;
+    /* Secundária — Tons complementares */
+    --us-blue: #000d2b;
+    --us-blue-light: #0064B1;
     --us-red: #c45c5c;
     --us-red-soft: #d47272;
 
-    /* Neutros — mais quentes e leves */
-    --white: #fefefe;
-    --off-white: #fafafa;
-    --gray-50: #f5f5f3;
-    --gray-100: #eeeceb;
-    --gray-200: #e2dfdd;
-    --gray-300: #d1cdca;
-    --gray-400: #b0aba7;
-    --gray-500: #8a8580;
-    --gray-600: #6b6762;
-    --gray-700: #504c48;
-    --gray-800: #3a3733;
-    --gray-900: #2a2725;
+    /* Neutros — limpos e modernos */
+    --white: #ffffff;
+    --off-white: #f8f9fc;
+    --gray-50: #f3f4f8;
+    --gray-100: #e8eaf0;
+    --gray-200: #d8dbe5;
+    --gray-300: #c4c8d4;
+    --gray-400: #9ca1b0;
+    --gray-500: #6e7485;
+    --gray-600: #535866;
+    --gray-700: #3d4150;
+    --gray-800: #2a2d38;
+    --gray-900: #1a1c24;
 
-    /* Semânticas — mais suaves */
-    --trust: #3a6b8a;
+    /* Semânticas */
+    --trust: #0064B1;
     --urgency: #c45c5c;
-    --success: #4aad6e;
-    --warning: #d4a84a;
+    --success: #0064B1;
+    --warning: #ffab00;
 
-    /* Gradientes — mais sutis e elegantes */
-    --gradient-hero: linear-gradient(145deg, #1e3a5f 0%, #264a5e 35%, #2a6b50 70%, #2d9d5e 100%);
-    --gradient-cta: linear-gradient(135deg, #2d9d5e 0%, #247a4a 100%);
+    /* Gradientes — azul profissional MCO */
+    --gradient-hero: linear-gradient(145deg, #000d2b 0%, #001a45 35%, #003670 70%, #0064B1 100%);
+    --gradient-cta: linear-gradient(135deg, #0064B1 0%, #004d8a 100%);
     --gradient-urgency: linear-gradient(135deg, #c45c5c 0%, #b54e4e 100%);
-    --gradient-dark: linear-gradient(145deg, #1e3a5f 0%, #264a5e 45%, #2a6b50 100%);
+    --gradient-dark: linear-gradient(145deg, #000d2b 0%, #001a45 45%, #003670 100%);
 
-    /* Tipografia */
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-heading: 'Sora', 'Inter', -apple-system, sans-serif;
+    /* Tipografia — Poppins (MCO) */
+    --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Poppins', -apple-system, sans-serif;
 
     /* Espaçamento */
     --section-py: 80px;
     --container-px: 20px;
     --container-max: 1120px;
 
-    /* Sombras — mais suaves */
-    --shadow-xs: 0 1px 2px rgba(0,0,0,0.03);
-    --shadow-sm: 0 1px 4px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 14px rgba(0,0,0,0.07);
-    --shadow-lg: 0 8px 28px rgba(0,0,0,0.08);
-    --shadow-xl: 0 14px 40px rgba(0,0,0,0.1);
-    --shadow-glow-green: 0 4px 18px rgba(45, 157, 94, 0.2);
-    --shadow-glow-yellow: 0 4px 18px rgba(230, 200, 74, 0.25);
+    /* Sombras — estilo MCO */
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+    --shadow-md: 0 6px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 6px 24px rgba(0,100,177,0.12);
+    --shadow-xl: 0 14px 40px rgba(0,100,177,0.15);
+    --shadow-glow-green: 0 4px 18px rgba(0, 100, 177, 0.25);
+    --shadow-glow-yellow: 0 4px 18px rgba(255, 171, 0, 0.3);
 
     /* Bordas */
     --radius-sm: 8px;
@@ -80,21 +80,21 @@
 /* ---- DARK MODE ---- */
 @media (prefers-color-scheme: dark) {
     :root {
-        --white: #1a1a2e;
-        --off-white: #16213e;
-        --gray-50: #1a1a2e;
-        --gray-100: #222244;
-        --gray-200: #2a2a4a;
-        --gray-300: #3a3a5a;
-        --gray-400: #6a6a8a;
-        --gray-500: #9a9ab0;
-        --gray-600: #b0b0c4;
-        --gray-700: #c8c8d8;
-        --gray-800: #e0e0ea;
-        --gray-900: #f0f0f5;
-        --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-        --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
-        --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+        --white: #0a0e1a;
+        --off-white: #0f1525;
+        --gray-50: #131a2e;
+        --gray-100: #1a2240;
+        --gray-200: #232d4a;
+        --gray-300: #2e3a5a;
+        --gray-400: #5a6580;
+        --gray-500: #8a92a8;
+        --gray-600: #a8afc0;
+        --gray-700: #c8cdd8;
+        --gray-800: #e0e3ea;
+        --gray-900: #f0f2f5;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+        --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+        --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);
     }
 }
 
@@ -130,7 +130,7 @@ button { font-family: inherit; }
     left: 0;
     width: 0%;
     height: 2px;
-    background: linear-gradient(90deg, var(--br-green), var(--br-yellow), var(--us-red));
+    background: linear-gradient(90deg, #0064B1, #ffab00, #0064B1);
     z-index: 10000;
     transition: width 0.1s linear;
     opacity: 0.7;
@@ -255,30 +255,13 @@ button { font-family: inherit; }
 .navbar-brand {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 800;
-    font-size: 1.05rem;
-    color: var(--gray-900);
-    font-family: var(--font-heading);
-}
-
-.navbar-brand-flags {
-    display: flex;
-    align-items: center;
     gap: 0;
-    position: relative;
 }
 
-.navbar-brand-flags .flag-icon {
-    width: 28px;
-    height: 20px;
-    border-radius: 3px;
-    overflow: hidden;
-    box-shadow: var(--shadow-xs);
-}
-
-.navbar-brand-flags .flag-icon:last-child {
-    margin-left: -6px;
+.brand-logo {
+    height: 38px;
+    width: auto;
+    max-width: 240px;
 }
 
 .navbar-nav {
@@ -639,7 +622,7 @@ button { font-family: inherit; }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(45, 157, 94, 0.3);
+    box-shadow: 0 8px 28px rgba(0, 100, 177, 0.35);
     background: var(--br-green-dark);
 }
 
@@ -2075,6 +2058,16 @@ button { font-family: inherit; }
 
 .footer-links a:hover {
     color: var(--br-yellow);
+}
+
+.footer-mco {
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-mco strong {
+    color: #ffab00;
 }
 
 .footer-legal {
