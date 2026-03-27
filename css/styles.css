@@ -536,7 +536,7 @@ button { font-family: inherit; }
     font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 24px;
-    border: 1px solid rgba(255, 223, 0, 0.2);
+    border: 1px solid rgba(255, 171, 0, 0.2);
 }
 
 .hero-badge .countdown-inline {
@@ -674,7 +674,7 @@ button { font-family: inherit; }
 
 .btn-green:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0, 156, 59, 0.4);
+    box-shadow: 0 8px 28px rgba(0, 100, 177, 0.3);
 }
 
 /* ---- HERO TRUST ---- */
@@ -1143,7 +1143,7 @@ button { font-family: inherit; }
 .bridge-connector {
     flex: 1;
     height: 4px;
-    background: linear-gradient(90deg, var(--br-green), var(--br-yellow), var(--us-red), var(--us-blue));
+    background: linear-gradient(90deg, var(--br-green), var(--br-yellow), var(--br-green));
     position: relative;
     margin: 0 -6px;
     z-index: 1;
@@ -1201,7 +1201,7 @@ button { font-family: inherit; }
     width: 48px;
     height: 48px;
     border-radius: var(--radius-md);
-    background: rgba(45, 157, 94, 0.08);
+    background: rgba(0, 100, 177, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1262,13 +1262,13 @@ button { font-family: inherit; }
 }
 
 .comparison-col.with {
-    background: #f0faf4;
-    border: 2px solid rgba(45, 157, 94, 0.2);
+    background: #f0f5fa;
+    border: 2px solid rgba(0, 100, 177, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
     .comparison-col.without { background: #2a1a1e; border-color: rgba(196,92,92,0.3); }
-    .comparison-col.with { background: #1a2a1e; border-color: rgba(45,157,94,0.3); }
+    .comparison-col.with { background: #1a1e2a; border-color: rgba(0,100,177,0.3); }
 }
 
 .comparison-col-header {
@@ -1340,7 +1340,7 @@ button { font-family: inherit; }
     right: -100px;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(255,223,0,0.04), transparent 60%);
+    background: radial-gradient(circle, rgba(255,171,0,0.04), transparent 60%);
     border-radius: 50%;
 }
 
@@ -1378,7 +1378,7 @@ button { font-family: inherit; }
     width: 44px;
     height: 44px;
     border-radius: var(--radius-sm);
-    background: rgba(255,223,0,0.1);
+    background: rgba(255,171,0,0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1758,7 +1758,7 @@ button { font-family: inherit; }
 .form-select:focus {
     outline: none;
     border-color: var(--br-green);
-    box-shadow: 0 0 0 4px rgba(45, 157, 94, 0.1);
+    box-shadow: 0 0 0 4px rgba(0, 100, 177, 0.1);
 }
 
 .form-input::placeholder {
@@ -2015,7 +2015,7 @@ button { font-family: inherit; }
    FOOTER
    ============================================ */
 .footer {
-    background: #2a2725;
+    background: #0a1628;
     color: rgba(255, 255, 255, 0.6);
     padding: 48px 0 100px;
     text-align: center;
@@ -2274,6 +2274,168 @@ button { font-family: inherit; }
 /* ============================================
    RESPONSIVE
    ============================================ */
+
+/* ---- Mobile Small (< 380px) ---- */
+@media (max-width: 379px) {
+    .brand-logo {
+        height: 28px;
+        max-width: 160px;
+    }
+
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-badge {
+        font-size: 0.75rem;
+        padding: 8px 14px;
+    }
+
+    .btn-primary {
+        padding: 14px 28px;
+        font-size: 0.95rem;
+    }
+
+    .btn-secondary {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+
+    .comparison-table {
+        grid-template-columns: 1fr;
+    }
+
+    .urgency-bar {
+        font-size: 0.78rem;
+        padding: 10px 12px;
+    }
+
+    .countdown-unit {
+        padding: 2px 5px;
+        min-width: 28px;
+    }
+
+    .countdown-number {
+        font-size: 0.9rem;
+    }
+
+    .final-cta .btn-primary {
+        padding: 16px 32px;
+        font-size: 1rem;
+    }
+
+    .footer-links {
+        gap: 12px 16px;
+    }
+}
+
+/* ---- Mobile (< 640px) ---- */
+@media (max-width: 639px) {
+    .brand-logo {
+        height: 30px;
+        max-width: 190px;
+    }
+
+    .navbar-cta {
+        display: none;
+    }
+
+    .hero {
+        padding: 90px 0 80px;
+        min-height: auto;
+    }
+
+    .hero-flags-svg svg {
+        width: 140px;
+    }
+
+    .hero-trust {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .comparison-table {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-col {
+        padding: 22px 18px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .solution-bridge {
+        max-width: 300px;
+    }
+
+    .bridge-flag {
+        width: 70px;
+        height: 48px;
+    }
+
+    .bridge-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .bridge-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .ps-section {
+        padding: 18px;
+        margin-top: 28px;
+    }
+
+    .final-cta {
+        padding: 70px 0;
+    }
+
+    .about-badge {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px 20px;
+    }
+
+    .about-badge-text {
+        text-align: center;
+    }
+
+    .footer {
+        padding: 36px 0 100px;
+    }
+
+    .footer-brand svg {
+        width: 120px;
+    }
+
+    .footer-links {
+        gap: 10px 18px;
+    }
+
+    .identify-item {
+        padding: 14px 16px;
+    }
+
+    .pain-card {
+        padding: 18px;
+    }
+
+    .faq-question {
+        padding: 16px 18px;
+        font-size: 0.92rem;
+    }
+
+    .faq-answer-inner {
+        padding: 0 18px 16px;
+    }
+}
+
+/* ---- Tablet Small (640px+) ---- */
 @media (min-width: 640px) {
     .pain-grid { grid-template-columns: repeat(2, 1fr); }
     .solution-cards { grid-template-columns: repeat(2, 1fr); }
@@ -2282,19 +2444,29 @@ button { font-family: inherit; }
     .stats-grid { grid-template-columns: repeat(4, 1fr); }
     .scary-grid { grid-template-columns: repeat(4, 1fr); }
     .hero-cta-group { flex-direction: row; justify-content: center; }
+    .comparison-table { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr 1fr; }
 }
 
+/* ---- Desktop (900px+) ---- */
 @media (min-width: 900px) {
     :root {
         --section-py: 100px;
         --container-px: 40px;
     }
 
+    .brand-logo {
+        height: 38px;
+        max-width: 280px;
+    }
+
     .solution-cards { grid-template-columns: repeat(3, 1fr); }
     .about-content { grid-template-columns: auto 1fr; gap: 48px; }
-    .form-row { grid-template-columns: 1fr 1fr; }
+    .pain-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* ---- Large Desktop (1024px+) ---- */
 @media (min-width: 1024px) {
     .testimonials-grid { grid-template-columns: repeat(4, 1fr); }
+    .benefits-grid { grid-template-columns: repeat(2, 1fr); }
 }
