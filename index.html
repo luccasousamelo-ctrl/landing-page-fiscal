@@ -1044,17 +1044,11 @@
         <a href="#formulario" class="btn-sticky">Diagnóstico Gratuito</a>
     </div>
 
-    <!-- DIGISAC WEBCHAT — Assessoria Fiscal -->
-    <script>
-      window._digisac = {
-        id: "d92b1734-c483-4fb4-8350-be8f1e4ac58a",
-        payload: {
-          startOpen: false,
-          departmentId: "16b06056-949a-48aa-97cb-d95bcc9ea9cd"
-        }
-      }
-    </script>
-    <script src="https://webchat.digisac.app/embedded.js" defer></script>
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5562999939810?text=Ol%C3%A1%2C%20quero%20regularizar%20minha%20situa%C3%A7%C3%A3o%20fiscal%20no%20Brasil%20e%20nos%20EUA!" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+    </a>
+
     <script>
     // IntersectionObserver para nav ativa
     document.addEventListener('DOMContentLoaded', function() {
@@ -1073,23 +1067,11 @@
     });
     </script>
     <style>
-      .close-widgets-container,#umadivqualquer{bottom:36px !important;right:36px !important;background:transparent !important}
-      .open-widgets-container{bottom:36px !important;right:36px !important}
-
-      /* Digisac webchat — fix mobile overflow */
-      @media (max-width: 640px) {
-        .open-widgets-container,
-        .open-widgets-container > div,
-        .open-widgets-container iframe,
-        [class*="digisac"] iframe,
-        [id*="digisac"] iframe {
-          max-width: calc(100vw - 24px) !important;
-          max-height: calc(100vh - 120px) !important;
-          width: calc(100vw - 24px) !important;
-          right: 12px !important;
-          left: 12px !important;
-          bottom: 12px !important;
-          border-radius: 16px !important;
+      .whatsapp-float{position:fixed;bottom:24px;right:24px;z-index:996;width:60px;height:60px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:waPulse 2s ease-in-out infinite;text-decoration:none}
+      .whatsapp-float svg{width:32px;height:32px}
+      .whatsapp-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.6);animation:none}
+      @keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 0 0 12px rgba(37,211,102,.15),0 4px 20px rgba(37,211,102,.4)}}
+      @media(max-width:899px){.whatsapp-float{bottom:80px;width:56px;height:56px}.whatsapp-float svg{width:28px;height:28px}}
         }
       }
     </style>
