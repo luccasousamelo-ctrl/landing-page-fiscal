@@ -115,6 +115,10 @@
 
         hamburger.addEventListener('click', toggleMenu);
 
+        // Botão X de fechar
+        var closeBtn = menu.querySelector('.mobile-menu-close');
+        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
         // Fecha ao clicar em qualquer link do menu
         menu.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', closeMenu);
