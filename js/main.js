@@ -95,25 +95,36 @@
         }, { passive: true });
     }
 
-    // ---- HAMBURGER MENU ----
+    // ---- HAMBURGER MENU (fullscreen overlay) ----
     function initMobileMenu() {
         var hamburger = document.querySelector('.hamburger');
         var menu = document.querySelector('.mobile-menu');
-        var overlay = document.querySelector('.mobile-menu-overlay');
         if (!hamburger || !menu) return;
+
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            menu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
 
         function toggleMenu() {
             hamburger.classList.toggle('active');
             menu.classList.toggle('open');
-            if (overlay) overlay.classList.toggle('open');
             document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
         }
 
         hamburger.addEventListener('click', toggleMenu);
-        if (overlay) overlay.addEventListener('click', toggleMenu);
 
+        // Fecha ao clicar em qualquer link do menu
         menu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', toggleMenu);
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Fecha ao pressionar ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && menu.classList.contains('open')) {
+                closeMenu();
+            }
         });
     }
 
