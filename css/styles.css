@@ -439,7 +439,7 @@ button { font-family: inherit; }
 .mobile-menu-close svg {
     width: 22px;
     height: 22px;
-    color: white;
+    stroke: #ffffff;
 }
 
 .mobile-menu-close:hover,
