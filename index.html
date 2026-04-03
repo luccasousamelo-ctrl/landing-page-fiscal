@@ -1075,6 +1075,23 @@
     <style>
       .close-widgets-container,#umadivqualquer{bottom:36px !important;right:36px !important;background:transparent !important}
       .open-widgets-container{bottom:36px !important;right:36px !important}
+
+      /* Digisac webchat — fix mobile overflow */
+      @media (max-width: 640px) {
+        .open-widgets-container,
+        .open-widgets-container > div,
+        .open-widgets-container iframe,
+        [class*="digisac"] iframe,
+        [id*="digisac"] iframe {
+          max-width: calc(100vw - 24px) !important;
+          max-height: calc(100vh - 120px) !important;
+          width: calc(100vw - 24px) !important;
+          right: 12px !important;
+          left: 12px !important;
+          bottom: 12px !important;
+          border-radius: 16px !important;
+        }
+      }
     </style>
 
     <!-- ============================================
