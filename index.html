@@ -70,16 +70,16 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="#" class="navbar-brand">
-                <img src="/assets/logo-mco-branca.webp" alt="MCO Contábil — Assessoria Fiscal para Brasileiros nos EUA" style="height:36px" fetchpriority="high" width="180" height="36">
+                <img src="assets/logo-mco-branca.webp" alt="MCO Contábil — Assessoria Fiscal para Brasileiros nos EUA" class="brand-logo" fetchpriority="high" width="300" height="105">
             </a>
 
-            <nav class="navbar-nav">
+            <div class="navbar-nav">
                 <a href="#identifica">Identifica-se?</a>
                 <a href="#solucao">Serviços</a>
                 <a href="#como-funciona">Como Funciona</a>
                 <a href="#depoimentos">Depoimentos</a>
                 <a href="#faq">FAQ</a>
-            </nav>
+            </div>
 
             <a href="#formulario" class="navbar-cta">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -93,12 +93,14 @@
             </button>
         </div>
         <!-- Trust Bar -->
-        <div style="display:flex;gap:16px;align-items:center;font-size:10px;color:rgba(255,255,255,.5);margin-top:6px;flex-wrap:wrap;justify-content:center;padding:0 20px">
-            <span>&#10003; CRC Brasil</span>
-            <span>&#10003; IRS Enrolled Agent</span>
-            <span>&#10003; OAB Tributarista</span>
-            <span>&#10003; SSL Seguro</span>
-            <span>&#10003; LGPD Compliance</span>
+        <div class="navbar-trust-bar">
+            <div class="container navbar-trust-inner">
+                <span>&#10003; CRC Brasil</span>
+                <span>&#10003; IRS Enrolled Agent</span>
+                <span>&#10003; OAB Tributarista</span>
+                <span>&#10003; SSL Seguro</span>
+                <span>&#10003; LGPD Compliance</span>
+            </div>
         </div>
     </nav>
 
@@ -836,11 +838,11 @@
                         <div class="form-group">
                             <label class="form-label" for="whatsapp">WhatsApp (com DDD)</label>
                             <input class="form-input" type="tel" id="whatsapp" name="whatsapp" placeholder="+1 (xxx) xxx-xxxx" required autocomplete="tel">
-                        <!-- Honeypot anti-spam -->
-                        <input type="text" name="_gotcha" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" tabindex="-1" autocomplete="off">
                             <div class="form-error">Insira um número válido.</div>
                         </div>
                     </div>
+                    <!-- Honeypot anti-spam -->
+                    <input type="text" name="_gotcha" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" tabindex="-1" autocomplete="off">
 
                     <div class="form-row">
                         <div class="form-group">
