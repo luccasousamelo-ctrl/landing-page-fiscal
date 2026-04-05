@@ -365,6 +365,20 @@
                 trackEvent('generate_lead', { method: 'form' });
                 trackEvent('Lead', { content_name: 'Landing Page Form' });
 
+                // BIA recepciona o lead automaticamente via WhatsApp
+                try {
+                    var biaXhr = new XMLHttpRequest();
+                    biaXhr.open('POST', 'https://mco-lead.vercel.app/api/recepcionar');
+                    biaXhr.setRequestHeader('Content-Type', 'application/json');
+                    biaXhr.send(JSON.stringify({
+                        nome: formData.nome,
+                        telefone: formData.whatsapp.replace(/\D/g, '').replace(/^(\d{2})(\d+)/, '55$1$2'),
+                        email: formData.email || null,
+                        origem: 'accountingmco',
+                        mensagem: 'Lead do formulário principal - ' + (formData.situacao || '')
+                    }));
+                } catch(ex) {}
+
                 sendLeadEmail(formData, function(success) {
                     if (success) {
                         window.location.href = 'obrigado.html';
@@ -450,6 +464,19 @@
 
                 trackEvent('whatsapp_lead_captured', { method: 'popup' });
                 trackEvent('Lead', { content_name: 'WhatsApp Popup' });
+
+                // BIA recepciona via WhatsApp
+                try {
+                    var bx = new XMLHttpRequest();
+                    bx.open('POST', 'https://mco-lead.vercel.app/api/recepcionar');
+                    bx.setRequestHeader('Content-Type', 'application/json');
+                    bx.send(JSON.stringify({
+                        nome: leadData.nome,
+                        telefone: leadData.telefone.replace(/\D/g, '').replace(/^(\d{2})(\d+)/, '55$1$2'),
+                        email: leadData.email || null,
+                        origem: 'accountingmco'
+                    }));
+                } catch(ex) {}
 
                 sendLeadEmail(leadData, function() {
                     // Redireciona para WhatsApp independente do resultado
