@@ -402,6 +402,7 @@
             }
         }, { passive: true });
 
+        var MCO_T0_AG = Date.now();
         // Form submit
         document.getElementById('booking-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -416,7 +417,27 @@
                 detalhes: document.getElementById('b-detalhes').value,
                 horario: selectedTime ? selectedTime.getAttribute('data-time') : ''
             };
-            console.log('[Booking Submit]', formData);
+            // Antes os dados só iam para o console e se perdiam. Agora vão para o
+            // CRM do Hub (Novos Leads); keepalive garante o envio no redirecionamento.
+            // (Esta página não carrega js/main.js, por isso o envio é feito aqui.)
+            try {
+                var q = new URLSearchParams(location.search), utm = {};
+                ['source', 'medium', 'campaign', 'content', 'term'].forEach(function(k) { var v = q.get('utm_' + k); if (v) utm[k] = v; });
+                fetch('https://www.hubmcocontabil.com.br/api/site-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        site: 'accountingmco',
+                        nome: formData.nome, email: formData.email, telefone: formData.whatsapp,
+                        interesse: 'Agendamento de consulta',
+                        mensagem: formData.detalhes,
+                        extras: { 'Estado (EUA)': formData.estado, 'Situação': formData.situacao,
+                                  'Anos nos EUA': formData.anos_eua, 'Horário pedido': formData.horario },
+                        pagina: location.pathname, utm: utm, hp_site: '', ts_abertura: MCO_T0_AG
+                    })
+                }).catch(function() {});
+            } catch (ex) {}
             window.location.href = 'obrigado.html';
         });
     </script>

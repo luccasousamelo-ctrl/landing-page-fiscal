@@ -37,8 +37,49 @@
         console.log('[Track]', eventName, params);
     }
 
+    // ---- LEAD NO CRM DO HUB MCO ----
+    // Todo formulário passa por sendLeadEmail, então o lead entra em "Novos Leads"
+    // do Hub por aqui. Em PARALELO ao FormSubmit: se o Hub falhar, nada muda para o
+    // visitante. keepalive porque logo depois a página redireciona/abre o WhatsApp.
+    var MCO_T0 = Date.now();
+    function sendLeadHub(data) {
+        try {
+            var utms = JSON.parse(sessionStorage.getItem('utm_params') || '{}');
+            var utm = {};
+            ['source', 'medium', 'campaign', 'content', 'term'].forEach(function(k) {
+                if (utms['utm_' + k]) utm[k] = utms['utm_' + k];
+            });
+            var email = data.email || '';
+            var extras = {};
+            if (data.estado) extras['Estado (EUA)'] = data.estado;
+            if (data.situacao) extras['Situação'] = data.situacao;
+            if (data.anos_eua) extras['Anos nos EUA'] = data.anos_eua;
+            if (data.horario) extras['Horário pedido'] = data.horario;
+            fetch('https://www.hubmcocontabil.com.br/api/site-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                keepalive: true,
+                body: JSON.stringify({
+                    site: 'accountingmco',
+                    // O pop-up de saída só pede e-mail: o nome vira a parte antes do @.
+                    nome: data.nome || (email ? email.split('@')[0] : ''),
+                    email: email,
+                    telefone: data.telefone || data.whatsapp || '',
+                    interesse: data.origem || 'Landing Page',
+                    mensagem: data.detalhes || '',
+                    extras: extras,
+                    pagina: window.location.pathname,
+                    utm: utm,
+                    hp_site: '',
+                    ts_abertura: MCO_T0
+                })
+            }).catch(function() {});
+        } catch (ex) {}
+    }
+
     // ---- SEND LEAD VIA FORMSUBMIT ----
     function sendLeadEmail(data, callback) {
+        sendLeadHub(data);
         var formData = new FormData();
         formData.append('nome', data.nome || '');
         formData.append('email', data.email || '');
