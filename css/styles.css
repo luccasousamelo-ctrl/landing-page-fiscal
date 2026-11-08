@@ -2067,6 +2067,28 @@ button { font-family: inherit; }
     margin-top: 8px;
 }
 
+/* Aceite opcional de WhatsApp (LGPD): desmarcado por padrão, o label inteiro é clicável */
+.form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 4px 0 16px;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--gray-600);
+    cursor: pointer;
+    text-align: left;
+}
+
+.form-consent input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    accent-color: var(--br-green);
+    cursor: pointer;
+}
+
 .form-disclaimer {
     text-align: center;
     font-size: 0.78rem;
