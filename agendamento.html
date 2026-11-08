@@ -362,6 +362,11 @@
                             <p>Integração Calendly aqui<br><small>Adicione o embed code do Calendly neste espaço</small></p>
                         </div>
 
+                        <label class="form-consent" for="b-consentimento-whatsapp">
+                            <input type="checkbox" id="b-consentimento-whatsapp" name="consentimento_whatsapp" value="1">
+                            <span>Autorizo a MCO Contábil a falar comigo pelo WhatsApp sobre esta solicitação. Posso cancelar quando quiser.</span>
+                        </label>
+
                         <button type="submit" class="btn-green form-submit" style="width: 100%; justify-content: center;">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
                             Solicitar Agendamento
@@ -417,6 +422,9 @@
                 detalhes: document.getElementById('b-detalhes').value,
                 horario: selectedTime ? selectedTime.getAttribute('data-time') : ''
             };
+            // Aceite de WhatsApp: opcional e desmarcado. Só com a caixa marcada o Hub
+            // registra o consentimento (versão 'wa-v1-2026-11' = texto exato da caixa).
+            var aceitouWa = document.getElementById('b-consentimento-whatsapp').checked;
             // Antes os dados só iam para o console e se perdiam. Agora vão para o
             // CRM do Hub (Novos Leads); keepalive garante o envio no redirecionamento.
             // (Esta página não carrega js/main.js, por isso o envio é feito aqui.)
@@ -434,7 +442,9 @@
                         mensagem: formData.detalhes,
                         extras: { 'Estado (EUA)': formData.estado, 'Situação': formData.situacao,
                                   'Anos nos EUA': formData.anos_eua, 'Horário pedido': formData.horario },
-                        pagina: location.pathname, utm: utm, hp_site: '', ts_abertura: MCO_T0_AG
+                        pagina: location.pathname, utm: utm, hp_site: '', ts_abertura: MCO_T0_AG,
+                        consentimento_whatsapp: aceitouWa,
+                        consentimento_whatsapp_versao: aceitouWa ? 'wa-v1-2026-11' : undefined
                     })
                 }).catch(function() {});
             } catch (ex) {}

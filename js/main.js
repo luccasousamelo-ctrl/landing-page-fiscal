@@ -10,7 +10,9 @@
     var WHATSAPP_MSG = encodeURIComponent('Olá, quero regularizar minha situação fiscal no Brasil e nos EUA!');
     var WHATSAPP_URL = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + WHATSAPP_MSG;
     var IR_DEADLINE = new Date('2026-05-30T23:59:59-03:00');
-    var LEAD_EMAIL = 'contato@brasileuafiscal.com.br'; // Email que recebe os leads
+    // Versão do texto da caixa de aceite de WhatsApp (o Hub só aceita versões que conhece).
+    var CONSENTIMENTO_WA_VERSAO = 'wa-v1-2026-11';
+    var HUB_TIMEOUT_MS = 6000;
 
     // ---- UTM CAPTURE ----
     function captureUTMs() {
@@ -38,11 +40,17 @@
     }
 
     // ---- LEAD NO CRM DO HUB MCO ----
-    // Todo formulário passa por sendLeadEmail, então o lead entra em "Novos Leads"
-    // do Hub por aqui. Em PARALELO ao FormSubmit: se o Hub falhar, nada muda para o
-    // visitante. keepalive porque logo depois a página redireciona/abre o WhatsApp.
+    // Todo formulário passa por sendLead: o Hub ("Novos Leads") é o ÚNICO destino
+    // do lead. O callback roda quando o Hub responde (ou após HUB_TIMEOUT_MS), para
+    // a tela nunca travar; keepalive garante o envio mesmo com o redirecionamento.
     var MCO_T0 = Date.now();
-    function sendLeadHub(data) {
+    function sendLead(data, callback) {
+        var feito = false;
+        function fim(ok) {
+            if (feito) return;
+            feito = true;
+            if (callback) callback(ok);
+        }
         try {
             var utms = JSON.parse(sessionStorage.getItem('utm_params') || '{}');
             var utm = {};
@@ -55,58 +63,41 @@
             if (data.situacao) extras['Situação'] = data.situacao;
             if (data.anos_eua) extras['Anos nos EUA'] = data.anos_eua;
             if (data.horario) extras['Horário pedido'] = data.horario;
+            var corpo = {
+                site: 'accountingmco',
+                // O pop-up de saída só pede e-mail: o nome vira a parte antes do @.
+                nome: data.nome || (email ? email.split('@')[0] : ''),
+                email: email,
+                telefone: data.telefone || data.whatsapp || '',
+                interesse: data.origem || 'Landing Page',
+                mensagem: data.detalhes || '',
+                extras: extras,
+                pagina: window.location.pathname,
+                utm: utm,
+                hp_site: '',
+                ts_abertura: MCO_T0
+            };
+            // Aceite de WhatsApp: só vai quando a caixa (opcional) foi marcada.
+            if (data.consentimento_whatsapp === true) {
+                corpo.consentimento_whatsapp = true;
+                corpo.consentimento_whatsapp_versao = CONSENTIMENTO_WA_VERSAO;
+            }
+            setTimeout(function() { fim(false); }, HUB_TIMEOUT_MS);
             fetch('https://www.hubmcocontabil.com.br/api/site-lead', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 keepalive: true,
-                body: JSON.stringify({
-                    site: 'accountingmco',
-                    // O pop-up de saída só pede e-mail: o nome vira a parte antes do @.
-                    nome: data.nome || (email ? email.split('@')[0] : ''),
-                    email: email,
-                    telefone: data.telefone || data.whatsapp || '',
-                    interesse: data.origem || 'Landing Page',
-                    mensagem: data.detalhes || '',
-                    extras: extras,
-                    pagina: window.location.pathname,
-                    utm: utm,
-                    hp_site: '',
-                    ts_abertura: MCO_T0
-                })
-            }).catch(function() {});
-        } catch (ex) {}
+                body: JSON.stringify(corpo)
+            }).then(function(r) { fim(r.ok); }).catch(function() { fim(false); });
+        } catch (ex) {
+            fim(false);
+        }
     }
 
-    // ---- SEND LEAD VIA FORMSUBMIT ----
-    function sendLeadEmail(data, callback) {
-        sendLeadHub(data);
-        var formData = new FormData();
-        formData.append('nome', data.nome || '');
-        formData.append('email', data.email || '');
-        formData.append('telefone', data.telefone || data.whatsapp || '');
-        formData.append('estado', data.estado || '');
-        formData.append('situacao', data.situacao || '');
-        formData.append('origem', data.origem || 'Landing Page');
-        formData.append('pagina', window.location.href);
-        formData.append('_subject', 'Novo Lead - Brasil+EUA Fiscal - ' + (data.nome || 'Sem nome'));
-        formData.append('_template', 'table');
-        formData.append('_captcha', 'false');
-
-        var utms = JSON.parse(sessionStorage.getItem('utm_params') || '{}');
-        if (Object.keys(utms).length > 0) {
-            formData.append('utm_params', JSON.stringify(utms));
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://formsubmit.co/ajax/' + LEAD_EMAIL);
-        xhr.setRequestHeader('Accept', 'application/json');
-        xhr.onload = function() {
-            if (callback) callback(xhr.status === 200);
-        };
-        xhr.onerror = function() {
-            if (callback) callback(false);
-        };
-        xhr.send(formData);
+    // Caixa de aceite de WhatsApp do formulário (se existir): true só se marcada.
+    function aceitouWhatsapp(form) {
+        var cx = form && form.querySelector('input[type="checkbox"][name="consentimento_whatsapp"]');
+        return !!(cx && cx.checked);
     }
 
     // ---- SCROLL PROGRESS BAR ----
@@ -400,33 +391,16 @@
                     whatsapp: sanitize(whatsapp.value.trim()),
                     estado: form.querySelector('[name="estado"]') ? sanitize(form.querySelector('[name="estado"]').value) : '',
                     situacao: form.querySelector('[name="situacao"]') ? sanitize(form.querySelector('[name="situacao"]').value) : '',
-                    origem: 'Formulario Principal'
+                    origem: 'Formulario Principal',
+                    consentimento_whatsapp: aceitouWhatsapp(form)
                 };
 
                 trackEvent('generate_lead', { method: 'form' });
                 trackEvent('Lead', { content_name: 'Landing Page Form' });
 
-                // BIA recepciona o lead automaticamente via WhatsApp
-                try {
-                    var biaXhr = new XMLHttpRequest();
-                    biaXhr.open('POST', 'https://mco-lead.vercel.app/api/recepcionar');
-                    biaXhr.setRequestHeader('Content-Type', 'application/json');
-                    biaXhr.send(JSON.stringify({
-                        nome: formData.nome,
-                        telefone: formData.whatsapp.replace(/\D/g, '').replace(/^(\d{2})(\d+)/, '55$1$2'),
-                        email: formData.email || null,
-                        origem: 'accountingmco',
-                        mensagem: 'Lead do formulário principal - ' + (formData.situacao || '')
-                    }));
-                } catch(ex) {}
-
-                sendLeadEmail(formData, function(success) {
-                    if (success) {
-                        window.location.href = 'obrigado.html';
-                    } else {
-                        // Fallback: redireciona mesmo se o envio falhar (dados nao se perdem no tracking)
-                        window.location.href = 'obrigado.html';
-                    }
+                sendLead(formData, function() {
+                    // Redireciona com ou sem resposta do Hub (keepalive mantém o envio).
+                    window.location.href = 'obrigado.html';
                 });
             }
         });
@@ -500,26 +474,14 @@
                     nome: sanitize(nome.value.trim()),
                     email: sanitize(email.value.trim()),
                     telefone: sanitize(telefone.value.trim()),
-                    origem: 'Popup WhatsApp'
+                    origem: 'Popup WhatsApp',
+                    consentimento_whatsapp: aceitouWhatsapp(form)
                 };
 
                 trackEvent('whatsapp_lead_captured', { method: 'popup' });
                 trackEvent('Lead', { content_name: 'WhatsApp Popup' });
 
-                // BIA recepciona via WhatsApp
-                try {
-                    var bx = new XMLHttpRequest();
-                    bx.open('POST', 'https://mco-lead.vercel.app/api/recepcionar');
-                    bx.setRequestHeader('Content-Type', 'application/json');
-                    bx.send(JSON.stringify({
-                        nome: leadData.nome,
-                        telefone: leadData.telefone.replace(/\D/g, '').replace(/^(\d{2})(\d+)/, '55$1$2'),
-                        email: leadData.email || null,
-                        origem: 'accountingmco'
-                    }));
-                } catch(ex) {}
-
-                sendLeadEmail(leadData, function() {
+                sendLead(leadData, function() {
                     // Redireciona para WhatsApp independente do resultado
                     var safeName = sanitize(nome.value.trim()).replace(/[<>"'&]/g, '');
                     var msg = encodeURIComponent('Olá! Meu nome é ' + safeName + '. Quero regularizar minha situação fiscal no Brasil e nos EUA!');
@@ -585,7 +547,7 @@
 
                     trackEvent('checklist_download', { email: emailInput.value.trim() });
 
-                    sendLeadEmail(leadData, function() {
+                    sendLead(leadData, function() {
                         popup.classList.remove('active');
                         submitBtn.disabled = false;
                         alert('Checklist enviado para seu email!');
